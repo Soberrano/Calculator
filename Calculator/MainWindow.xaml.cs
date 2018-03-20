@@ -20,9 +20,11 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = _viewModel = new MainWindowViewModel();
         }
     }
 }

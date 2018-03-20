@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="256.098" Width="474.634">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="41"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="419*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="22*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="1"  Name="textBox" Text="{Binding Text , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4.6,0.2,2,11.4" Grid.RowSpan="2" Grid.Column="1"   />
+
+        <Grid Margin="5.6,0.6,10,10.4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+
+            </Grid.RowDefinitions>
+            <Button Grid.Column="6" Grid.Row="1" Name="button_M1" Content="MR" Command="{Binding GetOperation}" CommandParameter="MR" Grid.ColumnSpan="3"/>
+            <Button Grid.Column="6" Grid.Row="2" Name="button_M2" Content="MC" Command="{Binding GetOperation}" CommandParameter="MC" Grid.ColumnSpan="3"/>
+            <Button Grid.Column="6" Grid.Row="3" Name="button_M3" Content="M+" Command="{Binding GetOperation}" CommandParameter="M+" Grid.ColumnSpan="3"/>
+            <Button Grid.Column="6" Grid.Row="4" Name="button_M4" Content="M-" Command="{Binding GetOperation}" CommandParameter="M-" Grid.ColumnSpan="3"/>
+
+
+
+
+            <Button Grid.Row="0" Grid.Column="6" Name="button" Content="AC" Command="{Binding Clear}" />
+            <Button Grid.Column="3" Name="button_Copy" Content="%" Command="{Binding GetOperation}" CommandParameter="%" />
+            <Button Grid.Column="2" Name="button_Copy1" Content="1/x" Command="{Binding GetOperation}" CommandParameter="1/x"  />
+            <Button Grid.Column="4" Name="button_Copy2" Content="x^2" Command="{Binding GetOperation}" CommandParameter="x^2" />
+            <Button Grid.Column="1" Name="button_Copy3" Content="x!" Command="{Binding GetOperation}" CommandParameter="x!"/>
+            <Button Grid.Column="0" Name="button_Copy4" Content="𝜋" Command="{Binding ShowText}" CommandParameter="3,14159"/>
+            <Button Grid.Row="0" Grid.Column="5" Name="button_Copy5" Content="/" Command="{Binding GetOperation}" CommandParameter="/"  />
+            <Button Grid.Row="1" Grid.Column="5" Name="button_Copy6" Content="*" Command="{Binding GetOperation}" CommandParameter="*" />
+            <Button Grid.Row="2" Grid.Column="5" Name="button_Copy7" Content="-" Command="{Binding GetOperation}" CommandParameter="-"/>
+            <Button Grid.Row="3" Grid.Column="5" Grid.RowSpan="2" Name="button_Copy8" Content="+" Command="{Binding GetOperation}" CommandParameter="+" Height="56" />
+            <Button Grid.Row="1" Grid.Column="4" Name="button_Copy9" Background="#eeeeee" Content="9" Command="{Binding ShowText}" CommandParameter="9"  />
+            <Button Grid.Row="2" Grid.Column="4" Name="button_Copy10" Background="#eeeeee" Content="6" Command="{Binding ShowText}" CommandParameter="6"    />
+            <Button Grid.Row="3" Grid.Column="4" Name="button_Copy11" Background="#eeeeee" Content="3" Command="{Binding ShowText}" CommandParameter="3"  />
+            <Button Grid.Row="4" Grid.Column="4" Name="button_Copy12" Background="SkyBlue" Content="=" Command="{Binding ShowResult}"  />
+            <Button Grid.Row="1" Grid.Column="3" Name="button_Copy13" Background="#eeeeee" Content="8" Command="{Binding ShowText}" CommandParameter="8"   />
+            <Button Grid.Row="2" Grid.Column="3" Name="button_Copy14" Background="#eeeeee" Content="5" Command="{Binding ShowText}" CommandParameter="5"  />
+            <Button Grid.Row="3" Grid.Column="3" Name="button_Copy15" Background="#eeeeee" Content="2" Command="{Binding ShowText}" CommandParameter="2"  />
+            <Button Grid.Row="4" Grid.Column="2" Name="button_Copy16" Background="#eeeeee" Content="," Command="{Binding Point}" CommandParameter="," />
+            <Button Grid.Row="1" Grid.Column="2" Name="button_Copy17" Background="#eeeeee" Content="7" Command="{Binding ShowText}" CommandParameter="7" />
+            <Button Grid.Row="2" Grid.Column="2" Name="button_Copy18" Background="#eeeeee" Content="4" Command="{Binding ShowText}" CommandParameter="4" />
+            <Button Grid.Row="3" Grid.Column="2" Name="button_Copy19" Background="#eeeeee" Content="1" Command="{Binding ShowText}" CommandParameter="1" />
+            <Button Grid.Row="4" Grid.Column="3" Name="button_Copy20" Background="#eeeeee" Content="0" Command="{Binding ShowText}" CommandParameter="0"/>
+            <Button Grid.Row="2" Grid.Column="1" Name="button_Copy21" Content="ln" Command="{Binding GetOperation}" CommandParameter="ln"/>
+            <Button Grid.Row="1" Grid.Column="1" Name="button_Copy22" Content="log" Command="{Binding GetOperation}" CommandParameter="log" />
+            <Button Grid.Row="3" Grid.Column="1" Name="button_Copy23" Content="√" Command="{Binding GetOperation}" CommandParameter="√" />
+            <Button Grid.Row="4" Grid.Column="1" Name="button_Copy24" Content="^" Command="{Binding GetOperation}" CommandParameter="^" />
+            <Button Grid.Row="1" Grid.Column="0" Name="button_Copy25" Content="sin" Command="{Binding GetOperation}" CommandParameter="sin" />
+            <Button Grid.Row="2" Grid.Column="0" Name="button_Copy26" Content="cos" Command="{Binding GetOperation}" CommandParameter="cos" />
+            <Button Grid.Row="3" Grid.Column="0" Name="button_Copy27" Content="tan" Command="{Binding GetOperation}" CommandParameter="tan" />
+            <Button Grid.Row="4" Grid.Column="0" Name="button_Copy28" Content="ctg" Command="{Binding GetOperation}" CommandParameter="ctn"/>
+        </Grid>
     </Grid>
 </Window>
