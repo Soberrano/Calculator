@@ -20,7 +20,7 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindowViewModel _viewModel;
+        MainWindowViewModel _viewModel;//туц
         public MainWindow()
         {
             InitializeComponent();
