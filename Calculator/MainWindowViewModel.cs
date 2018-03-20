@@ -77,7 +77,7 @@ namespace Calculator
             });
             #endregion
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
         string text;
         public string Text
