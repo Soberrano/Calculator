@@ -97,7 +97,10 @@ namespace Calculator
             {
                 Text += CommandParameter;
                 if (!operationClicked)
-                    _model.FirstNumber = double.Parse(Text);
+                {
+                    
+                }
+
             }, (param) =>
             {
                 if (Text != null && !Text.Contains(","))
