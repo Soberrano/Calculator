@@ -18,45 +18,74 @@ namespace Calculator
         public MainWindowViewModel()
         {
             #region Реализация команд
-            ShowText = new MyCommand((param) =>
+            ShowText = new Command((param) =>
             {
-
                 if (!resultClicked)
                 {
                     Text += CommandParameter;
                     if (!operationClicked)
-                        _model.FirstNumber = double.Parse(Text);
+                    {
+                        _model.Result = double.Parse(Text);
+                        _model.ResultM = double.Parse(Text);
+                    }
                     if (operationClicked)
                         _model.SecondNumber = double.Parse(Text);
                 }
                 else//если нажато "=" => выведи результат
-                    Text = Convert.ToString(_model.Resulting);
+                    Text = Convert.ToString(_model.GetResult());
 
                 operationClicked = false;
             }, (param) => true);
             //Реализация команды для операторов
-            GetOperation = new MyCommand((param) =>
+            GetOperation = new Command((param) =>
             {
                 _model.Operation = CommandParameter;
                 operationClicked = true;
                 resultClicked = false;
+                _model.Result = _model.GetResult();
+                Text = "";
+            }, (param) => true);
+            //Реализация команды для операторов "M..."
+            GetOperation = new Command((param) =>
+            {
+                _model.Operation = CommandParameter;
+                operationClicked = true;
+                resultClicked = false;
+                _model.ResultM = _model.GetResultM();
                 Text = "";
             }, (param) => true);
             //реализация команды для "="
-            ShowResult = new MyCommand((param) =>
+            ShowResult = new Command((param) =>
             {
                 _model.OnlyFirstnumber = false;
                 resultClicked = true;
-                _model.Result = _model.Resulting;
-                _model.FirstNumber = _model.Result;
+                _model.Result = _model.GetResult();
                 Text = Convert.ToString(_model.Result);
+            }, (param) => true);
+            //реализация команды для "MR"
+            ShowResultM = new Command((param) =>
+            {
+                _model.OnlyFirstnumber = false;
+                resultClicked = true;
+                _model.ResultM = _model.GetResultM();
+                Text = Convert.ToString(_model.ResultM);
+                _model.Result = _model.ResultM;
+                _model.First = false;
             }, (param) => true);
 
             //Реализация команды для сброса
-            Clear = new MyCommand((param) =>
+            Clear = new Command((param) =>
             {
-
-                _model.FirstNumber = 0;
+                _model.Result = 0;
+                _model.SecondNumber = 0;
+                resultClicked = false;
+                Text = "";
+                operationClicked = false;
+            }, (param) => true);
+            //Реализация команды для MC
+            ClearM = new Command((param) =>
+            {
+                _model.ResultM = 0;
                 _model.SecondNumber = 0;
                 resultClicked = false;
                 Text = "";
@@ -64,7 +93,7 @@ namespace Calculator
             }, (param) => true);
 
             //Реализация команды для "." и преобразование в double
-            Point = new MyCommand((param) =>
+            Point = new Command((param) =>
             {
                 Text += CommandParameter;
                 if (!operationClicked)
@@ -97,13 +126,13 @@ namespace Calculator
         public void OnPropertyChanged([CallerMemberName]string Name = "") { if (PropertyChanged != null) { PropertyChanged.Invoke(this, new PropertyChangedEventArgs(Name)); } }
 
         #region Для корректной работы команд
-        public class MyCommand : ICommand
+        public class Command : ICommand
         {
             public event EventHandler CanExecuteChanged;
             Action<object> _execute;
             Predicate<object> __canexecute;
 
-            public MyCommand(Action<object> execute, Predicate<object> canexecute)
+            public Command(Action<object> execute, Predicate<object> canexecute)
             {
                 _execute = execute;
                 __canexecute = canexecute;
@@ -128,25 +157,25 @@ namespace Calculator
         }
         #endregion
 
-        public MyCommand ShowText
-        {
-            get; set;
-        }
+        public Command ShowText
+        { get; set; }
         /// <summary>
         /// Получить нажатую арифметическую операцию
         /// </summary>
-        public MyCommand GetOperation
+        public Command GetOperation
         { get; set; }
-
-        public MyCommand ShowResult
+        public Command GetOperationM
         { get; set; }
-
-        public MyCommand Clear
+        public Command ShowResult
         { get; set; }
-
-        public MyCommand Point
+        public Command ShowResultM
         { get; set; }
-
+        public Command Clear
+        { get; set; }
+        public Command ClearM
+        { get; set; }
+        public Command Point
+        { get; set; }
         public static string CommandParameter { get; private set; }
     }
 }

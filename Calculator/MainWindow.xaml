@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Calculator" Height="256.098" Width="474.634">
+        Title="Calculator" Height="342.167" Width="398.725">
     <Window.Resources>
-        
+
     </Window.Resources>
 
 
@@ -33,8 +33,8 @@
             <RowDefinition Height="30*"/>
 
         </Grid.RowDefinitions>
-        <Button Grid.Column="6" Grid.Row="2" Name="button_M1" Content="MR" Command="{Binding GetOperation}" CommandParameter="MR" />
-        <Button Grid.Column="6" Grid.Row="3" Name="button_M2" Content="MC" Command="{Binding GetOperation}" CommandParameter="MC" />
+        <Button Grid.Column="6" Grid.Row="2" Name="button_M1" Content="MR" Command="{Binding ShowResultM}"/>
+        <Button Grid.Column="6" Grid.Row="3" Name="button_M2" Content="MC" Command="{Binding ClearM}"/>
         <Button Grid.Column="6" Grid.Row="4" Name="button_M3" Content="M+" Command="{Binding GetOperation}" CommandParameter="M+" />
         <Button Grid.Column="6" Grid.Row="5" Name="button_M4" Content="M-" Command="{Binding GetOperation}" CommandParameter="M-" />
 
@@ -42,7 +42,7 @@
 
 
         <Button Grid.Row="1" Grid.Column="6" Name="button" Content="AC" Command="{Binding Clear}"  />
-       
+
         <Button Grid.Row="1" Grid.Column="3" Name="button_Copy" Content="%" Command="{Binding GetOperation}" CommandParameter="%"  />
         <Button Grid.Row="1" Grid.Column="2" Name="button_Copy1" Content="1/x" Command="{Binding GetOperation}" CommandParameter="1/x"  />
         <Button Grid.Row="1" Grid.Column="4" Name="button_Copy2" Content="x^2" Command="{Binding GetOperation}" CommandParameter="x^2"  />

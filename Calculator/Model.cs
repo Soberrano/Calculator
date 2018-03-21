@@ -11,86 +11,125 @@ namespace Calculator
         public double FirstNumber { get; set; }
         public double SecondNumber { get; set; }
         public double Result { get; set; }
+        public double ResultM { get; set; }
         public string Operation { get; set; }
         public bool OnlyFirstnumber { get; set; }
-        public double Resulting
+        public double Num { get; set; }
+        public bool First { get; set; } = true;
+
+        public double GetResult()
         {
-
-            get
+            switch (Operation)
             {
-                switch (Operation)
-                {
-                    case "+":
-                        Result = FirstNumber + SecondNumber;
+                case "+":
+                    Result = Result + SecondNumber;
 
-                        break;
-                    case "-":
-                        Result = FirstNumber - SecondNumber;
+                    break;
+                case "-":
+                    Result = Result - SecondNumber;
 
-                        break;
-                    case "/":
-                        Result = FirstNumber / SecondNumber;
+                    break;
+                case "/":
+                    if (First == true)
+                    {
+                        First = false;
+                    }
+                    else
+                    {
+                        Result = Result / SecondNumber;
+                        First = true;
+                    }
 
-                        break;
-                    case "*":
-                        Result = FirstNumber * SecondNumber;
-                        break;
-                    case "^":
-                        Result = Math.Pow((FirstNumber), SecondNumber);
+                    break;
+                case "*":
+                    if (First == true)
+                    {
+                        First = false;
+                    }
+                    else
+                    {
+                        Result = Result * SecondNumber;
+                        First = true;
+                    }
+                    break;
+                case "^":
+                    if (First == true)
+                    {
+                        First = false;
+                    }
+                    else
+                    {
+                        Result = Math.Pow((Result), SecondNumber);
                         OnlyFirstnumber = true;
-                        break;
-                    case "sin":
-                        Result = Math.Sin(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
-                    case "cos":
-                        Result = Math.Cos(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
-                    case "tan":
-                        Result = Math.Tan(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
-                    case "ctg":
-                        Result = 1 / (Math.Tan(FirstNumber));
-                        OnlyFirstnumber = true;
-                        break;
-                    case "ln":
-                        Result = Math.Log(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
-                    case "log":
-                        Result = Math.Log10(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
-                    case "x!":
-                        double a = 1;
-                        for (int i = 1; i <= FirstNumber; i++)
-                        {
-                            a = a * i;
-                        }
-                        Result = a;
-                        OnlyFirstnumber = true;
-                        Operation = "факториал от ";
-                        break;
-                    case "x^2":
-                        Result = Math.Pow((FirstNumber), 2);
-                        OnlyFirstnumber = true;
-                        Operation = "квадрат от ";
-                        break;
-                    case "√":
-                        Result = Math.Sqrt(FirstNumber);
-                        OnlyFirstnumber = true;
-                        break;
+                        First = true;
+                    }
+                    break;
+                case "sin":
+                    Result = Math.Sin(Result);
+                    OnlyFirstnumber = true;
+                    break;
+                case "cos":
+                    Result = Math.Cos(Result);
+                    OnlyFirstnumber = true;
+                    break;
+                case "tan":
+                    Result = Math.Tan(Result);
+                    OnlyFirstnumber = true;
+                    break;
+                case "ctg":
+                    Result = 1 / (Math.Tan(Result));
+                    OnlyFirstnumber = true;
+                    break;
+                case "ln":
+                    Result = Math.Log(Result);
+                    OnlyFirstnumber = true;
+                    break;
+                case "log":
+                    Result = Math.Log10(Result);
+                    OnlyFirstnumber = true;
+                    break;
+                case "x!":
+                    double a = 1;
+                    for (int i = 1; i <= Result; i++)
+                    {
+                        a = a * i;
+                    }
+                    Result = a;
+                    OnlyFirstnumber = true;
+                    Operation = "факториал от ";
+                    break;
+                case "x^2":
+                    Result = Math.Pow((Result), 2);
+                    OnlyFirstnumber = true;
+                    Operation = "квадрат от ";
+                    break;
+                case "√":
+                    Result = Math.Sqrt(Result);
+                    OnlyFirstnumber = true;
+                    break;
 
-                    case "1/x":
-                        Result = 1 / (FirstNumber);
-                        OnlyFirstnumber = true;
-                        Operation = "1/";
-                        break;
-                }
-                return Result;
+                case "1/x":
+                    Result = 1 / (Result);
+                    OnlyFirstnumber = true;
+                    Operation = "1/";
+                    break;
             }
+            return Result;
+        }
+
+        public double GetResultM()
+        {
+            switch(Operation)
+            {
+                case "M+":
+                    ResultM = ResultM + SecondNumber;
+                    break;
+                case "M-":
+                    ResultM -= FirstNumber;
+                    OnlyFirstnumber = true;
+                    break;
+            }
+            return ResultM;
         }
     }
 }
