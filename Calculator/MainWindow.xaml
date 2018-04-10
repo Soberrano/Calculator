@@ -12,9 +12,65 @@
 
 
 
+    <Grid Margin="23,27,20,10.8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="189*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0"  Name="textBoxMem" Text="{Binding TextMem , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="1"  Name="textBox" Text="{Binding Text , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <UniformGrid Columns="4" Grid.Row="2" Margin="0,1.4,0,3.4"  >
+            <Button Name="button_M1" Content="MR" Command="{Binding ShowResultM}"/>
+            <Button  Name="button_M2" Content="MC" Command="{Binding ClearM}"/>
+            <Button  Name="button_M3" Content="M+" Command="{Binding GetOperationM}" CommandParameter="M+" />
+            <Button Name="button_M4" Content="M-" Command="{Binding GetOperationM}" CommandParameter="M-" />
+        </UniformGrid>
+        <UniformGrid Grid.Row="3" Columns="7" Rows="5" Margin="0,2.6,0,0.2" >
+            <Button Name="button_Copy25" Content="sin" Command="{Binding GetOperation}" CommandParameter="s" />
+            <Button Name="button_Copy26" Content="cos" Command="{Binding GetOperation}" CommandParameter="c" />
+            <Button Name="button_Copy27" Content="tan" Command="{Binding GetOperation}" CommandParameter="t"  />
+            <Button Name="button_Copy28" Content="ctg" Command="{Binding GetOperation}" CommandParameter="k" />
+            <Button  Name="button" Content="C" Command="{Binding Clear}"  />
+            <Button  Name="buttonCE" Content="CE" Command="{Binding ClearMem}"  />
+            <Button  Name="buttonDel" Content="Del" Command="{Binding ClearDel}"  />
+            <Button  Name="button_Copy3" Content="x!" Command="{Binding GetOperation}" CommandParameter="x!" />
+            <Button  Name="button_Copy4" Content="𝜋" Command="{Binding ShowText}" CommandParameter="3,14159"/>
+            <Button Name="button_Copy19" Background="#FFFFFF" Content="7" Command="{Binding ShowText}" CommandParameter="7"  />
+            <Button  Name="button_Copy15" Background="#FFFFFF" Content="8" Command="{Binding ShowText}" CommandParameter="8"   />
+            <Button  Name="button_Copy11" Background="#FFFFFF" Content="9" Command="{Binding ShowText}" CommandParameter="9"   />
+            <Button  Name="button_Copy6" Content="*" Command="{Binding GetOperation}" CommandParameter="*" />
+            <Button  Name="button_Copy5" Content="/" Command="{Binding GetOperation}" CommandParameter="/"  />
+            <Button  Name="button_Copy1" Content="1/x" Command="{Binding GetOperation}" CommandParameter="1/x" />
+            <Button  Name="button_Copy" Content="%" Command="{Binding GetOperation}" CommandParameter="%"  />
+            <Button Name="button_Copy18" Background="#FFFFFF" Content="4" Command="{Binding ShowText}" CommandParameter="4"  />
+            <Button  Name="button_Copy14" Background="#FFFFFF" Content="5" Command="{Binding ShowText}" CommandParameter="5"  />
+            <Button  Name="button_Copy10" Background="#FFFFFF" Content="6" Command="{Binding ShowText}" CommandParameter="6"   />
+            <Button  Name="button_Copy7" Content="+" Command="{Binding GetOperation}" CommandParameter="+" />
+            <Button   Name="button_Copy8" Content="-" Command="{Binding GetOperation}" CommandParameter="-"  />
+            <Button  Name="button_Copy2" Content="x^2" Command="{Binding GetOperation}" CommandParameter="x^2"  />
+            <Button Name="button_Copy24" Content="^" Command="{Binding GetOperation}" CommandParameter="^"  />
+            <Button  Name="button_Copy17" Background="#FFFFFF" Content="1" Command="{Binding ShowText}" CommandParameter="1"  />
+            <Button  Name="button_Copy13" Background="#FFFFFF" Content="2" Command="{Binding ShowText}" CommandParameter="2"  />
+            <Button  Name="button_Copy9" Background="#FFFFFF" Content="3" Command="{Binding ShowText}" CommandParameter="3"   />
+            <Button Name="button_Copy22" Content="log" Command="{Binding GetOperation}" CommandParameter="log"  />
+            <Button Name="button_Copy21" Content="ln" Command="{Binding GetOperation}" CommandParameter="ln" />
+            <Button Name="button_Copy23" Content="√" Command="{Binding GetOperation}" CommandParameter="√" />
+            <Button Content="(" Command="{Binding GetOperation}" CommandParameter="("/>
+            <Button Content=")" Command="{Binding GetOperation}" CommandParameter=")"/>
+            <Button Name="button_Copy20" Background="#FFFFFF" Content="0" Command="{Binding ShowText}" CommandParameter="0" />
+            <Button  Name="button_Copy16"  Content="," Command="{Binding Point}" CommandParameter=","  />
+            <Button  Name="button_Copy12" Background="SkyBlue" Content="=" Command="{Binding ShowResult}" />
 
-    <Grid Margin="23,49,20,10.4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="2" >
-        <Grid.ColumnDefinitions>
+
+        </UniformGrid>
+
+
+
+
+
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="61*"/>
             <ColumnDefinition Width="61*"/>
             <ColumnDefinition Width="61*"/>
@@ -71,7 +127,6 @@
         <Button Grid.Row="2" Grid.Column="0" Name="button_Copy25" Content="sin" Command="{Binding GetOperation}" CommandParameter="sin" />
         <Button Grid.Row="3" Grid.Column="0" Name="button_Copy26" Content="cos" Command="{Binding GetOperation}" CommandParameter="cos" />
         <Button Grid.Row="4" Grid.Column="0" Name="button_Copy27" Content="tan" Command="{Binding GetOperation}" CommandParameter="tan"  />
-        <Button Grid.Row="5" Grid.Column="0" Name="button_Copy28" Content="ctg" Command="{Binding GetOperation}" CommandParameter="ctn" />
+        <Button Grid.Row="5" Grid.Column="0" Name="button_Copy28" Content="ctg" Command="{Binding GetOperation}" CommandParameter="ctn" />-->
     </Grid>
-
 </Window>
