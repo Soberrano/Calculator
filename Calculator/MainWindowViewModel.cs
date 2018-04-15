@@ -46,7 +46,39 @@ namespace Calculator
                 TextMem += textShow;
                 textShow = "";
                 Text = "";
-
+            }, (param) => true);
+            GetOperationHard = new Command((param) =>
+            {
+                switch (CommandParameter)
+                {
+                    case "s":
+                        textShow += "sin";
+                        break;
+                    case "c":
+                        textShow += "cos";
+                        break;
+                    case "t":
+                        textShow += "tan";
+                        break;
+                    case "k":
+                        textShow += "ctg";
+                        break;
+                    case "q":
+                        textShow += "^2";
+                        break;
+                    case "l":
+                        textShow += "log";
+                        break;
+                    case "n":
+                        textShow += "ln";
+                        break;
+                    case "e":
+                        textShow += "10^";
+                        break;
+                }
+                TextMem += textShow;
+                textShow = "";
+                Text = "";
             }, (param) => true);
             ////Реализация команды для операторов "M..."
             GetOperationM = new Command((param) =>
@@ -63,6 +95,7 @@ namespace Calculator
                 TextMem += textShow;
                 _model.Result = _model.Calculate(TextMem);
                 Text = Convert.ToString(_model.Result);
+                textShow = "";
             }, (param) => true);
 
             //реализация команды для "MR"
@@ -200,6 +233,8 @@ namespace Calculator
         /// Получить нажатую арифметическую операцию
         /// </summary>
         public Command GetOperation
+        { get; set; }
+        public Command GetOperationHard
         { get; set; }
         public Command GetOperationM
         { get; set; }

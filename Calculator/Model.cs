@@ -120,23 +120,34 @@ namespace Calculator
 
 
         #region new era
-        //Метод возвращает true, если проверяемый символ - разделитель ("пробел" или "равно")
-
+        /// <summary>
+        /// Метод возвращает true, если проверяемый символ - разделитель ("пробел" или "равно")
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         static private bool IsDelimeter(char c)
         {
             if ((" =".IndexOf(c) != -1))
                 return true;
             return false;
         }
-        //Метод возвращает true, если проверяемый символ - оператор
+        /// <summary>
+        ///  Метод возвращает true, если проверяемый символ - оператор
+        /// </summary>
+        /// <param name="с"></param>
+        /// <returns></returns>
         static private bool IsOperator(char с)
         {
-            if (("+-/*^()!sctklg√".IndexOf(с) != -1))
+            if (("+-/*^()!sctklg√nqed".IndexOf(с) != -1))
                 return true;
             return false;
         }
 
-        //Метод возвращает приоритет оператора
+        /// <summary>
+        /// Метод возвращает приоритет оператора
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         static private byte GetPriority(char s)
         {
             switch (s)
@@ -147,14 +158,17 @@ namespace Calculator
                 case '-': return 3;
                 case '*': return 4;
                 case '/': return 4;
+                case 'd': return 4;//1/x
                 case '^': return 5;
+                case 'e': return 5;//10^x
+                case 'q': return 5;//x^2
                 case '!': return 5;
                 case 's': return 6;
                 case 'c': return 6;
                 case 't': return 6;
                 case 'k': return 6;//ctg
-                case 'l': return 6;
-                case 'g': return 6;//log
+                case 'l': return 6;//log
+                case 'n': return 6;//ln
                 case '√': return 7;
                 default: return 8;
             }
@@ -282,11 +296,13 @@ namespace Calculator
                                     return o;
                                 }
                             case 's': result = (Math.Sin(a)); break;
+                            case 'q': result = (Math.Pow(double.Parse(a.ToString()), 2)); break;
+                            case 'e': result = (Math.Pow(10, double.Parse(a.ToString()))); break;
+                            case 'l': result = (Math.Log(a)); break;
+                            case 'n': result = (Math.Log10(a)); break;
                             case 'c': result = (Math.Cos(a)); break;
                             case 't': result = (Math.Tan(a)); break;
                             case 'k': result = 1 / (Math.Tan(a)); break;//ctg
-                            case 'l': result = (Math.Log(a)); break;
-                            case 'g': result = (Math.Log10(a)); break;//log
                             case '√': result = Math.Sqrt(a); break;
                         }
 

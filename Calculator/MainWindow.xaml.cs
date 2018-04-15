@@ -26,5 +26,6 @@ namespace Calculator
             InitializeComponent();
             DataContext = _viewModel = new MainWindowViewModel();
         }
+
     }
 }
