@@ -54,11 +54,16 @@ namespace Calculator
             {
                 try
                 {
-                    String s = TextMem.Substring(TextMem.Length - 1);
-                    var temp = CommandParameter;
-                    if (s == temp)
-                        return false;
-                    return true;
+                    if (CommandParameter == ")" || CommandParameter == "(")
+                    { return true; }
+                    else
+                    {
+                        String s = TextMem.Substring(TextMem.Length - 1);
+                        var temp = CommandParameter;
+                        if (s == temp)
+                            return false;
+                        return true;
+                    }
                 }
                 catch { return true; }
             });
@@ -99,13 +104,14 @@ namespace Calculator
                 TextMem += textShow;
                 textShow = "";
                 Text = "";
-            }, (param) => {
+            }, (param) =>
+            {
                 if (cureCP != null)
                 {
-                        var temp = CommandParameter;
-                        if (cureCP == temp)
-                            return false;
-                        return true;
+                    var temp = CommandParameter;
+                    if (cureCP == temp)
+                        return false;
+                    return true;
                 }
                 return true;
             });
