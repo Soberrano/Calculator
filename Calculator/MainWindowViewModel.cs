@@ -14,6 +14,8 @@ namespace Calculator
     {
         Model _model = new Model();
         string textShow;
+        string original;
+        string cureCP;
         bool operationClicked = false;
         public MainWindowViewModel()
         {
@@ -21,7 +23,8 @@ namespace Calculator
             //#region Реализация команд
             ShowText = new Command((param) =>
             {
-                textShow += CommandParameter;
+                original += CommandParameter;//для работы ОПЗ
+                textShow += CommandParameter;//для работы с визуализацией
                 Text = textShow;
                 if (!operationClicked)
                 {
@@ -42,13 +45,27 @@ namespace Calculator
             ////Реализация команды для операторов
             GetOperation = new Command((param) =>
             {
+                original += CommandParameter;
                 textShow += CommandParameter;
                 TextMem += textShow;
                 textShow = "";
                 Text = "";
-            }, (param) => true);
+            }, (param) =>
+            {
+                try
+                {
+                    String s = TextMem.Substring(TextMem.Length - 1);
+                    var temp = CommandParameter;
+                    if (s == temp)
+                        return false;
+                    return true;
+                }
+                catch { return true; }
+            });
             GetOperationHard = new Command((param) =>
             {
+                cureCP = CommandParameter;
+                original += CommandParameter;
                 switch (CommandParameter)
                 {
                     case "s":
@@ -75,17 +92,30 @@ namespace Calculator
                     case "e":
                         textShow += "10^";
                         break;
+                    case "d":
+                        textShow += "1/";
+                        break;
                 }
                 TextMem += textShow;
                 textShow = "";
                 Text = "";
-            }, (param) => true);
+            }, (param) => {
+                if (cureCP != null)
+                {
+                        var temp = CommandParameter;
+                        if (cureCP == temp)
+                            return false;
+                        return true;
+                }
+                return true;
+            });
             ////Реализация команды для операторов "M..."
             GetOperationM = new Command((param) =>
             {
                 _model.Operation = CommandParameter;
                 operationClicked = true;
                 _model.ResultM = _model.GetResultM();
+                original = "";
                 textShow = "";
                 Text = "";
             }, (param) => true);
@@ -93,10 +123,15 @@ namespace Calculator
             ShowResult = new Command((param) =>
             {
                 TextMem += textShow;
-                _model.Result = _model.Calculate(TextMem);
+                _model.Result = _model.Calculate(original);
                 Text = Convert.ToString(_model.Result);
                 textShow = "";
-            }, (param) => true);
+            }, (param) =>
+            {
+                if (textShow == "")
+                    return false;
+                return true;
+            });
 
             //реализация команды для "MR"
             ShowResultM = new Command((param) =>
@@ -114,6 +149,7 @@ namespace Calculator
                 TextMem = "";
                 Text = "";
                 textShow = "";
+                original = "";
                 operationClicked = false;
             }, (param) => true);
             //Реализация команды для сброса CЕ

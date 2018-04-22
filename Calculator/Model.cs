@@ -17,108 +17,6 @@ namespace Calculator
         public double Num { get; set; }
         public bool First { get; set; } = true;
 
-        //public double GetResult()
-        //{
-
-        //    switch (Operation)
-        //    {
-        //        case "+":
-        //            Result = Result + SecondNumber;
-
-        //            break;
-        //        case "-":
-        //            Result = Result - SecondNumber;
-
-        //            break;
-        //        case "/":
-        //            if (First == true)
-        //            {
-        //                First = false;
-        //            }
-        //            else
-        //            {
-        //                Result = Result / SecondNumber;
-        //                First = true;
-        //            }
-
-        //            break;
-        //        case "*":
-        //            if (First == true)
-        //            {
-        //                First = false;
-        //            }
-        //            else
-        //            {
-        //                Result = Result * SecondNumber;
-        //                First = true;
-        //            }
-        //            break;
-        //        case "^":
-        //            if (First == true)
-        //            {
-        //                First = false;
-        //            }
-        //            else
-        //            {
-        //                Result = Math.Pow((Result), SecondNumber);
-        //                OnlyFirstnumber = true;
-        //                First = true;
-        //            }
-        //            break;
-        //        case "sin":
-        //            Result = Math.Sin(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "cos":
-        //            Result = Math.Cos(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "tan":
-        //            Result = Math.Tan(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "ctg":
-        //            Result = 1 / (Math.Tan(Result));
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "ln":
-        //            Result = Math.Log(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "log":
-        //            Result = Math.Log10(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-        //        case "x!":
-        //            double a = 1;
-        //            for (int i = 1; i <= Result; i++)
-        //            {
-        //                a = a * i;
-        //            }
-        //            Result = a;
-        //            OnlyFirstnumber = true;
-        //            Operation = "факториал от ";
-        //            break;
-        //        case "x^2":
-        //            Result = Math.Pow((Result), 2);
-        //            OnlyFirstnumber = true;
-        //            Operation = "квадрат от ";
-        //            break;
-        //        case "√":
-        //            Result = Math.Sqrt(Result);
-        //            OnlyFirstnumber = true;
-        //            break;
-
-        //        case "1/x":
-        //            Result = 1 / (Result);
-        //            OnlyFirstnumber = true;
-        //            Operation = "1/";
-        //            break;
-        //    }
-        //    return Result;
-        //}
-
-
         #region new era
         /// <summary>
         /// Метод возвращает true, если проверяемый символ - разделитель ("пробел" или "равно")
@@ -247,7 +145,7 @@ namespace Calculator
         static private double Counting(string input)
         {
             double result = 0; //Результат
-            Stack<double> temp = new Stack<double>(); //Dhtvtyysq стек для решения
+            Stack<double> temp = new Stack<double>(); //Временный стек для решения
 
             for (int i = 0; i < input.Length; i++) //Для каждого символа в строке
             {
@@ -272,20 +170,40 @@ namespace Calculator
                     double b;
                     try
                     {
-                        if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/' || input[i] == '^')
+                        b = temp.Pop();
+                        switch (input[i]) //И производим над ними действие, согласно оператору
                         {
-                            b = temp.Pop();
-                            switch (input[i]) //И производим над ними действие, согласно оператору
-                            {
-                                case '+': result = b + a; break;
-                                case '-': result = b - a; break;
-                                case '*': result = b * a; break;
-                                case '/': result = b / a; break;
-                                case '^': result = double.Parse(Math.Pow(double.Parse(b.ToString()), double.Parse(a.ToString())).ToString()); break;
-                            }
+                            case '+': result = b + a; break;
+                            case '-': result = b - a; break;
+                            case '*': result = b * a; break;
+                            case '/': result = b / a; break;
+                            case '^': result = double.Parse(Math.Pow(double.Parse(b.ToString()), double.Parse(a.ToString())).ToString()); break;
+                            case '!':
+                                {
+                                    double o = 1;
+                                    for (int h = 1; h <= a; h++)
+                                    {
+                                        o = o * h;
+                                    }
+                                    return b * o;
+                                }
+                            case 's': result = b * (Math.Sin(a)); break;
+                            case 'd': result = b * (1 / a); break;
+                            case 'q': result = b * (Math.Pow(double.Parse(a.ToString()), 2)); break;
+                            case 'e': result = b * (Math.Pow(10, double.Parse(a.ToString()))); break;
+                            case 'l': result = b * (Math.Log(a)); break;
+                            case 'n': result = b * (Math.Log10(a)); break;
+                            case 'c': result = b * (Math.Cos(a)); break;
+                            case 't': result = b * (Math.Tan(a)); break;
+                            case 'k': result = b * (1 / (Math.Tan(a))); break;//ctg
+                            case '√': result = b * Math.Sqrt(a); break;
                         }
+                    }
+                    catch
+                    {
                         switch (input[i])
                         {
+
                             case '!':
                                 {
                                     double o = 1;
@@ -296,33 +214,28 @@ namespace Calculator
                                     return o;
                                 }
                             case 's': result = (Math.Sin(a)); break;
+                            case 'd': result = (1 / a); break;
                             case 'q': result = (Math.Pow(double.Parse(a.ToString()), 2)); break;
                             case 'e': result = (Math.Pow(10, double.Parse(a.ToString()))); break;
                             case 'l': result = (Math.Log(a)); break;
                             case 'n': result = (Math.Log10(a)); break;
                             case 'c': result = (Math.Cos(a)); break;
                             case 't': result = (Math.Tan(a)); break;
-                            case 'k': result = 1 / (Math.Tan(a)); break;//ctg
+                            case 'k': result = (1 / (Math.Tan(a))); break;//ctg
                             case '√': result = Math.Sqrt(a); break;
                         }
 
-                    }
-                    catch { };
+                    };
 
                     temp.Push(result); //Результат вычисления записываем обратно в стек
                 }
             }
+
             return temp.Peek(); //Забираем результат всех вычислений из стека и возвращаем его
+
         }
         #endregion
-
-
-
-
-
-
-
-
+        
         public double GetResultM()
         {
             switch (Operation)

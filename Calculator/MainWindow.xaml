@@ -12,7 +12,7 @@
 
 
 
-    <Grid Margin="23,27,20,10.8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
         <Grid.RowDefinitions>
             <RowDefinition Height="18*"/>
             <RowDefinition Height="39*"/>
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0"  Name="textBoxMem" Text="{Binding TextMem , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="1"  Name="textBox" Text="{Binding Text , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <UniformGrid Columns="4" Grid.Row="2" Margin="0,1.4,0,3.4"  >
+        <UniformGrid Columns="4" Grid.Row="2">
             <Button Name="button_M1" Content="MR" Command="{Binding ShowResultM}"/>
             <Button  Name="button_M2" Content="MC" Command="{Binding ClearM}"/>
             <Button  Name="button_M3" Content="M+" Command="{Binding GetOperationM}" CommandParameter="M+" />
