@@ -10,245 +10,69 @@ namespace Calculator
     {
         public double FirstNumber { get; set; }
         public double SecondNumber { get; set; }
+        public static double ResultM { get; set; } = 0;
         public double Result { get; set; }
-        public double ResultM { get; set; }
-        public string Operation { get; set; }
         public bool OnlyFirstnumber { get; set; }
-        public double Num { get; set; }
-        public bool First { get; set; } = true;
 
-        #region new era
+        private static Dictionary<char, Func<double, double, double>> _forTwoPairs = new Dictionary<char, Func<double, double, double>>()
+        {
+            { '+', (a,b) => a + b },
+            { '-', (a,b) => a - b },
+            { '*', (a,b) => a * b },
+            { '/', (a,b) => a / b },
+            { '^', (a,b) => double.Parse(Math.Pow(double.Parse(a.ToString()), double.Parse(b.ToString())).ToString()) },
+            { '√', (a,b) => b * Math.Sqrt(a) },
+            { '!', (a,b) =>  { double o = 1; for (int h = 1; h <= a; h++) { o = o * h; } return b * o; } },
+        };
+
+        private static Dictionary<string, Func<double, double>> _forOnePairs = new Dictionary<string, Func<double, double>>()
+        {
+            { "log", a =>  (Math.Log(a)) },
+            { "sin", a =>  (Math.Sin(a)) },
+            { "1/", a =>  (1 / a)},
+            { "^2", a =>  (Math.Pow(double.Parse(a.ToString()), 2)) },
+            { "10^", a =>  (Math.Pow(10, double.Parse(a.ToString()))) },
+            { "ln", a =>  (Math.Log10(a)) },
+            { "cos", a =>  (Math.Cos(a)) },
+            { "tan", a =>  (Math.Tan(a)) },
+            { "ctg", a =>  (1 / (Math.Tan(a))) },
+            { "√", a =>  Math.Sqrt(a) },
+            { "!", a =>  { double o = 1; for (int h = 1; h <= a; h++) { o = o * h; } return o; } },
+        };
         /// <summary>
-        /// Метод возвращает true, если проверяемый символ - разделитель ("пробел" или "равно")
+        /// Обеспечивает вычисление для операций с двумя переменными
         /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        static private bool IsDelimeter(char c)
-        {
-            if ((" =".IndexOf(c) != -1))
-                return true;
-            return false;
-        }
+        /// <param name="firstv">Певрое число</param>
+        /// <param name="secondv">Второе число</param>
+        /// <param name="command">Операция</param>
+        /// <returns>Результат</returns>
+        public static double ForTwo(double firstv, double secondv, char command) => _forTwoPairs[command](firstv, secondv);
         /// <summary>
-        ///  Метод возвращает true, если проверяемый символ - оператор
+        ///  Обеспечивает вычисление для операций с одной переменной
         /// </summary>
-        /// <param name="с"></param>
-        /// <returns></returns>
-        static private bool IsOperator(char с)
-        {
-            if (("+-/*^()!sctklg√nqed".IndexOf(с) != -1))
-                return true;
-            return false;
-        }
+        /// <param name="firstv">Переменная</param>
+        /// <param name="command">Операция</param>
+        /// <returns>Результат</returns>
+        public static double ForOne(double firstv, string command) => _forOnePairs[command](firstv);
 
-        /// <summary>
-        /// Метод возвращает приоритет оператора
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        static private byte GetPriority(char s)
-        {
-            switch (s)
-            {
-                case '(': return 0;
-                case ')': return 1;
-                case '+': return 2;
-                case '-': return 3;
-                case '*': return 4;
-                case '/': return 4;
-                case 'd': return 4;//1/x
-                case '^': return 5;
-                case 'e': return 5;//10^x
-                case 'q': return 5;//x^2
-                case '!': return 5;
-                case 's': return 6;
-                case 'c': return 6;
-                case 't': return 6;
-                case 'k': return 6;//ctg
-                case 'l': return 6;//log
-                case 'n': return 6;//ln
-                case '√': return 7;
-                default: return 8;
-            }
-        }
 
-        //"Входной" метод класса
-        public double Calculate(string input)
-        {
-            string output = GetExpression(input); //Преобразовываем выражение в постфиксную запись
-            double result = Counting(output); //Решаем полученное выражение
-            return result; //Возвращаем результат
-        }
-
-        static private string GetExpression(string input)
-        {
-            string output = string.Empty; //Строка для хранения выражения
-            Stack<char> operStack = new Stack<char>(); //Стек для хранения операторов
-
-            for (int i = 0; i < input.Length; i++) //Для каждого символа в входной строке
-            {
-                //Разделители пропускаем
-                if (IsDelimeter(input[i]))
-                    continue; //Переходим к следующему символу
-
-                //Если символ - цифра, то считываем все число
-                if (Char.IsDigit(input[i])) //Если цифра
-                {
-                    //Читаем до разделителя или оператора, что бы получить число
-                    while (!IsDelimeter(input[i]) && !IsOperator(input[i]))
-                    {
-                        output += input[i]; //Добавляем каждую цифру числа к нашей строке
-                        i++; //Переходим к следующему символу
-
-                        if (i == input.Length) break; //Если символ - последний, то выходим из цикла
-                    }
-
-                    output += " "; //Дописываем после числа пробел в строку с выражением
-                    i--; //Возвращаемся на один символ назад, к символу перед разделителем
-                }
-
-                //Если символ - оператор
-                if (IsOperator(input[i])) //Если оператор
-                {
-                    if (input[i] == '(') //Если символ - открывающая скобка
-                        operStack.Push(input[i]); //Записываем её в стек
-                    else if (input[i] == ')') //Если символ - закрывающая скобка
-                    {
-                        //Выписываем все операторы до открывающей скобки в строку
-                        char s = operStack.Pop();
-
-                        while (s != '(')
-                        {
-                            output += s.ToString() + ' ';
-                            s = operStack.Pop();
-                        }
-                    }
-                    else //Если любой другой оператор
-                    {
-                        if (operStack.Count > 0) //Если в стеке есть элементы
-                            if (GetPriority(input[i]) <= GetPriority(operStack.Peek())) //И если приоритет нашего оператора меньше или равен приоритету оператора на вершине стека
-                                output += operStack.Pop().ToString() + " "; //То добавляем последний оператор из стека в строку с выражением
-
-                        operStack.Push(char.Parse(input[i].ToString())); //Если стек пуст, или же приоритет оператора выше - добавляем операторов на вершину стека
-
-                    }
-                }
-            }
-
-            //Когда прошли по всем символам, выкидываем из стека все оставшиеся там операторы в строку
-            while (operStack.Count > 0)
-                output += operStack.Pop() + " ";
-
-            return output; //Возвращаем выражение в постфиксной записи
-        }
-
-        static private double Counting(string input)
-        {
-            double result = 0; //Результат
-            Stack<double> temp = new Stack<double>(); //Временный стек для решения
-
-            for (int i = 0; i < input.Length; i++) //Для каждого символа в строке
-            {
-                //Если символ - цифра, то читаем все число и записываем на вершину стека
-                if (Char.IsDigit(input[i]))
-                {
-                    string a = string.Empty;
-
-                    while (!IsDelimeter(input[i]) && !IsOperator(input[i])) //Пока не разделитель
-                    {
-                        a += input[i]; //Добавляем
-                        i++;
-                        if (i == input.Length) break;
-                    }
-                    temp.Push(double.Parse(a)); //Записываем в стек
-                    i--;
-                }
-                else if (IsOperator(input[i])) //Если символ - оператор
-                {
-                    //Берем два последних значения из стека
-                    double a = temp.Pop();
-                    double b;
-                    try
-                    {
-                        b = temp.Pop();
-                        switch (input[i]) //И производим над ними действие, согласно оператору
-                        {
-                            case '+': result = b + a; break;
-                            case '-': result = b - a; break;
-                            case '*': result = b * a; break;
-                            case '/': result = b / a; break;
-                            case '^': result = double.Parse(Math.Pow(double.Parse(b.ToString()), double.Parse(a.ToString())).ToString()); break;
-                            case '!':
-                                {
-                                    double o = 1;
-                                    for (int h = 1; h <= a; h++)
-                                    {
-                                        o = o * h;
-                                    }
-                                    return b * o;
-                                }
-                            case 's': result = b * (Math.Sin(a)); break;
-                            case 'd': result = b * (1 / a); break;
-                            case 'q': result = b * (Math.Pow(double.Parse(a.ToString()), 2)); break;
-                            case 'e': result = b * (Math.Pow(10, double.Parse(a.ToString()))); break;
-                            case 'l': result = b * (Math.Log(a)); break;
-                            case 'n': result = b * (Math.Log10(a)); break;
-                            case 'c': result = b * (Math.Cos(a)); break;
-                            case 't': result = b * (Math.Tan(a)); break;
-                            case 'k': result = b * (1 / (Math.Tan(a))); break;//ctg
-                            case '√': result = b * Math.Sqrt(a); break;
-                        }
-                    }
-                    catch
-                    {
-                        switch (input[i])
-                        {
-
-                            case '!':
-                                {
-                                    double o = 1;
-                                    for (int h = 1; h <= a; h++)
-                                    {
-                                        o = o * h;
-                                    }
-                                    return o;
-                                }
-                            case 's': result = (Math.Sin(a)); break;
-                            case 'd': result = (1 / a); break;
-                            case 'q': result = (Math.Pow(double.Parse(a.ToString()), 2)); break;
-                            case 'e': result = (Math.Pow(10, double.Parse(a.ToString()))); break;
-                            case 'l': result = (Math.Log(a)); break;
-                            case 'n': result = (Math.Log10(a)); break;
-                            case 'c': result = (Math.Cos(a)); break;
-                            case 't': result = (Math.Tan(a)); break;
-                            case 'k': result = (1 / (Math.Tan(a))); break;//ctg
-                            case '√': result = Math.Sqrt(a); break;
-                        }
-
-                    };
-
-                    temp.Push(result); //Результат вычисления записываем обратно в стек
-                }
-            }
-
-            return temp.Peek(); //Забираем результат всех вычислений из стека и возвращаем его
-
-        }
-        #endregion
-        
-        public double GetResultM()
+        public double? GetResultM(string Operation, double Num)
         {
             switch (Operation)
             {
                 case "M+":
-                    ResultM = ResultM + SecondNumber;
-                    break;
+                    ResultM = ResultM + Num;
+                    return null;
                 case "M-":
-                    ResultM -= FirstNumber;
-                    OnlyFirstnumber = true;
-                    break;
+                    ResultM -= Num;
+                    return null;
+                case "MC":
+                    ResultM = 0;
+                    return null;
+                case "MR":
+                    return ResultM;
+                default: return null;
             }
-            return ResultM;
         }
     }
 }
