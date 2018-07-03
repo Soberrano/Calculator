@@ -8,11 +8,8 @@ namespace Calculator
 {
     public class Model
     {
-        public double FirstNumber { get; set; }
-        public double SecondNumber { get; set; }
         public static double ResultM { get; set; } = 0;
         public double Result { get; set; }
-        public bool OnlyFirstnumber { get; set; }
 
         private static Dictionary<char, Func<double, double, double>> _forTwoPairs = new Dictionary<char, Func<double, double, double>>()
         {
@@ -46,14 +43,14 @@ namespace Calculator
         /// <param name="secondv">Второе число</param>
         /// <param name="command">Операция</param>
         /// <returns>Результат</returns>
-        public static double ForTwo(double firstv, double secondv, char command) => _forTwoPairs[command](firstv, secondv);
+        public static double CalculateTwoArgs(double firstv, double secondv, char command) => _forTwoPairs[command](firstv, secondv);
         /// <summary>
         ///  Обеспечивает вычисление для операций с одной переменной
         /// </summary>
         /// <param name="firstv">Переменная</param>
         /// <param name="command">Операция</param>
         /// <returns>Результат</returns>
-        public static double ForOne(double firstv, string command) => _forOnePairs[command](firstv);
+        public static double CalculateOneArgs(double firstv, string command) => _forOnePairs[command](firstv);
 
 
         public double? GetResultM(string Operation, double Num)

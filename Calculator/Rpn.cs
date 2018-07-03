@@ -8,7 +8,7 @@ namespace Calculator
 {
     class Rpn
     {
-        public static string _ForOneOperation { get; set; }
+        public static string ForOneOperation { get; set; }
 
 
         //"Входной" метод класса
@@ -109,11 +109,11 @@ namespace Calculator
                     try
                     {
                         b = temp.Pop();
-                        result = Model.ForTwo(b, a, input[i]);
+                        result = Model.CalculateTwoArgs(b, a, input[i]);
                     }
                     catch
                     {
-                        result = Model.ForOne(a, _ForOneOperation);
+                        result = Model.CalculateOneArgs(a, ForOneOperation);
                     };
 
                     temp.Push(result); //Результат вычисления записываем обратно в стек
@@ -162,7 +162,7 @@ namespace Calculator
         /// <returns></returns>
         static private bool IsOperator(char с)
         {
-            if (("+-/*^()!√".IndexOf(с) != -1))
+            if (("+-/*^()!√sctl".IndexOf(с) != -1))
                 return true;
             return false;
         }

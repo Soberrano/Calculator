@@ -15,49 +15,49 @@
             <RowDefinition Height="29*"/>
             <RowDefinition Height="189*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0"  Name="textBoxMem" Text="{Binding TextMem , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Row="1"  Name="textBox" Text="{Binding Text , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="0"  Name="textBoxMem" IsReadOnly="True" />
+        <TextBox Grid.Row="1"  Name="textBox" IsReadOnly="True" />
         <UniformGrid Columns="4" Grid.Row="2">
-            <Button Name="button_M1" Content="MR"  Click="MOperation_Click"/>
-            <Button  Name="button_M2" Content="MC" Click="MOperation_Click"/>
-            <Button  Name="button_M3" Content="M+"  CommandParameter="M+" Click="MOperation_Click"/>
-            <Button Name="button_M4" Content="M-" CommandParameter="M-" Click="MOperation_Click"/>
+            <Button Content="MR" CommandParameter="MR" Click="MOperation_Click"/>
+            <Button Content="MC" CommandParameter="MC" Click="MOperation_Click"/>
+            <Button Content="M+"  CommandParameter="M+" Click="MOperation_Click"/>
+            <Button Content="M-" CommandParameter="M-" Click="MOperation_Click"/>
         </UniformGrid>
         <UniformGrid Grid.Row="3" Columns="7" Rows="5" Margin="0,2.6,0,0.2" >
-            <Button Name="button_Copy25" Content="sin"  CommandParameter="sin" Click="ForOne_Click"/>
-            <Button Name="button_Copy26" Content="cos"  CommandParameter="cos" Click="ForOne_Click"/>
-            <Button Name="button_Copy27" Content="tan"  CommandParameter="tan" Click="ForOne_Click" />
-            <Button Name="button_Copy28" Content="ctg"  CommandParameter="ctg" Click="ForOne_Click" />
-            <Button  Name="button" Content="C"  Click="Clear_Click"  />
-            <Button  Name="buttonCE" Content="CE"  Click="Clear_Click" />
-            <Button  Name="buttonDel" Content="Del"  Click="Clear_Click" />
-            <Button  Name="button_Copy3" Content="x!"  CommandParameter="!" Click="ForOne_Click"/>
-            <Button  Name="button_Copy4" Content="𝜋"  CommandParameter="3,14159" Click="Btn_Click"/>
-            <Button Name="button_Copy19" Background="#FFFFFF" Content="7"  CommandParameter="7" Click="Btn_Click" />
-            <Button  Name="button_Copy15" Background="#FFFFFF" Content="8"  CommandParameter="8" Click="Btn_Click"   />
-            <Button  Name="button_Copy11" Background="#FFFFFF" Content="9"  CommandParameter="9" Click="Btn_Click"   />
-            <Button  Name="button_Copy6" Content="*"  CommandParameter="*"  Click="ForTwo_Click"/>
-            <Button  Name="button_Copy5" Content="/" CommandParameter="/"  Click="ForTwo_Click" />
-            <Button  Name="button_Copy1" Content="1/x"  CommandParameter="1/" Click="Btn_Click" />
-            <Button  Name="button_Copy" Content="10^x"  CommandParameter="10^" Click="Btn_Click" />
-            <Button Name="button_Copy18" Background="#FFFFFF" Content="4"  CommandParameter="4" Click="Btn_Click"  />
-            <Button  Name="button_Copy14" Background="#FFFFFF" Content="5"  CommandParameter="5" Click="Btn_Click"  />
-            <Button  Name="button_Copy10" Background="#FFFFFF" Content="6"  CommandParameter="6" Click="Btn_Click"   />
-            <Button  Name="button_Copy7" Content="+"  CommandParameter="+"  Click="ForTwo_Click"/>
-            <Button   Name="button_Copy8" Content="-"  CommandParameter="-"  Click="ForTwo_Click" />
-            <Button  Name="button_Copy2" Content="x^2"  CommandParameter="^2" Click="ForOne_Click" />
-            <Button Name="button_Copy24" Content="^"  CommandParameter="^" Click="ForOne_Click"  />
-            <Button  Name="button_Copy17" Background="#FFFFFF" Content="1" CommandParameter="1" Click="Btn_Click"  />
-            <Button  Name="button_Copy13" Background="#FFFFFF" Content="2"  CommandParameter="2" Click="Btn_Click"  />
-            <Button  Name="button_Copy9" Background="#FFFFFF" Content="3"  CommandParameter="3"  Click="Btn_Click"  />
-            <Button Name="button_Copy22" Content="log"  CommandParameter="l" Click="ForOne_Click" />
-            <Button Name="button_Copy21" Content="ln"  CommandParameter="n" Click="ForOne_Click" />
-            <Button Name="button_Copy23" Content="√"  CommandParameter="√" Click="ForOne_Click"/>
-            <Button Content="("  CommandParameter="("/>
-            <Button Content=")"  CommandParameter=")"/>
-            <Button Name="button_Copy20" Background="#FFFFFF" Content="0"  CommandParameter="0"  Click="Btn_Click" />
-            <Button  Name="button_Copy16"  Content=","  CommandParameter="," Click="Btn_Click" />
-            <Button  Name="button_Copy12" Background="SkyBlue" Content="="  Click="Result_Click"/>
+            <Button Content="sin"  CommandParameter="sin" Click="ForOne_Click"/>
+            <Button Content="cos"  CommandParameter="cos" Click="ForOne_Click"/>
+            <Button Content="tan"  CommandParameter="tan" Click="ForOne_Click" />
+            <Button Content="ctg"  CommandParameter="ctg" Click="ForOne_Click" />
+            <Button Content="C"  Click="Clear_Click"  />
+            <Button Content="CE"  Click="Clear_Click" />
+            <Button Content="Del"  Click="Clear_Click" />
+            <Button Content="x!"  CommandParameter="!" Click="ForOne_Click"/>
+            <Button Content="𝜋"  CommandParameter="3,14159" Click="Btn_Click"/>
+            <Button Background="#FFFFFF" Content="7"  CommandParameter="7" Click="Btn_Click" />
+            <Button Background="#FFFFFF" Content="8"  CommandParameter="8" Click="Btn_Click"   />
+            <Button Background="#FFFFFF" Content="9"  CommandParameter="9" Click="Btn_Click"   />
+            <Button Content="*"  CommandParameter="*"  Click="ForTwo_Click"/>
+            <Button Content="/" CommandParameter="/"  Click="ForTwo_Click" />
+            <Button Content="1/x"  CommandParameter="1/" Click="Btn_Click" />
+            <Button Content="10^x"  CommandParameter="10^" Click="Btn_Click" />
+            <Button Background="#FFFFFF" Content="4"  CommandParameter="4" Click="Btn_Click"  />
+            <Button Background="#FFFFFF" Content="5"  CommandParameter="5" Click="Btn_Click"  />
+            <Button Background="#FFFFFF" Content="6"  CommandParameter="6" Click="Btn_Click"   />
+            <Button Content="+"  CommandParameter="+"  Click="ForTwo_Click"/>
+            <Button Content="-"  CommandParameter="-"  Click="ForTwo_Click" />
+            <Button Content="x^2"  CommandParameter="^2" Click="ForOne_Click" />
+            <Button Content="^"  CommandParameter="^" Click="ForOne_Click"  />
+            <Button Background="#FFFFFF" Content="1" CommandParameter="1" Click="Btn_Click"  />
+            <Button Background="#FFFFFF" Content="2"  CommandParameter="2" Click="Btn_Click"  />
+            <Button Background="#FFFFFF" Content="3"  CommandParameter="3"  Click="Btn_Click"  />
+            <Button Content="log"  CommandParameter="log" Click="ForOne_Click"  />
+            <Button Content="ln"  CommandParameter="ln" Click="ForOne_Click" />
+            <Button Content="√"  CommandParameter="√" Click="ForOne_Click"/>
+            <Button Content="("  CommandParameter="(" Click="Btn_Click"/>
+            <Button Content=")"  CommandParameter=")" Click="Btn_Click"/>
+            <Button Background="#FFFFFF" Content="0"  CommandParameter="0"  Click="Btn_Click" />
+            <Button Content=","  CommandParameter="," Click="Btn_Click" />
+            <Button Background="SkyBlue" Content="="  Click="Result_Click"/>
         </UniformGrid>
     </Grid>
 </Window>

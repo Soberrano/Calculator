@@ -34,10 +34,9 @@ namespace Calculator
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             string CurBtn = (String)(sender as Button).CommandParameter;
-            Rpn._ForOneOperation = CurBtn;
+            Rpn.ForOneOperation = CurBtn;
             command = CurBtn; // Получаем нажатую кнопку
             textBox.Text += command; // Записываем то, что было нажато в textBox
-            //}
         }
         /// <summary>
         /// Метод обработки кнопки "="
@@ -52,9 +51,10 @@ namespace Calculator
                 {
                     command = null;
                     cureFunc = textBoxMem.Text + textBox.Text; // Заполняем текущую функцию
-                    textBoxMem.Text = cureFunc; // выводим текущую функцию на отображение 
                     _model.Result = _rpn.Calculate(cureFunc); // Получаем ответ
+                    textBoxMem.Clear();
                     textBox.Text = _model.Result.ToString(); // Записываем ответ
+                    
                 }
             }
             catch { }
@@ -78,10 +78,19 @@ namespace Calculator
         /// <param name="e"></param>
         private void ForOne_Click(object sender, RoutedEventArgs e)
         {
-            command = (String)(sender as Button).CommandParameter;
-            Rpn._ForOneOperation = command;
-            textBoxMem.Text = textBox.Text += command;
-            textBox.Text = "";
+            try
+            {
+                command = (String)(sender as Button).CommandParameter;
+                Rpn.ForOneOperation = command;
+                cureFunc = textBox.Text + command; // Заполняем текущую функцию
+                _model.Result = _rpn.Calculate(cureFunc); // Получаем ответ
+                textBoxMem.Text = _model.Result.ToString(); //Выводим ответ на форму
+                textBox.Clear();
+            }
+            catch
+            {
+                textBox.Clear();
+            }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
