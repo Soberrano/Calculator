@@ -162,7 +162,11 @@ namespace Calculator
         /// <returns></returns>
         static private bool IsOperator(char с)
         {
+<<<<<<< HEAD
             if (("+-/*^()!√sctl".IndexOf(с) != -1))
+=======
+            if (("+-/*^()!√sct".IndexOf(с) != -1))
+>>>>>>> a6c0bc546397d7208ed7a01dbf5d1d7f3fdc0313
                 return true;
             return false;
         }
